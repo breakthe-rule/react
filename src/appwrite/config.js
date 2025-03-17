@@ -15,19 +15,19 @@ export class Service{
         this.bucket = new Storage(this.client);
     }
 
-    async createPost({title, slug, content, featuredImage, status, userID}){
+    async createPost({title, slug, content, featured_image, status, userid}){
         try{
 
             return await this.databases.createDocument(
-                        conf.appwriteDatabaseID, 
+                        conf.appwritteDatabaseID, 
                         conf.appwriteCollectionID,
                         slug,
                         {
                             title,
                             content,
-                            featuredImage,
+                            featured_image,
                             status,
-                            userID
+                            userid
                         }
                     )
 
@@ -36,16 +36,16 @@ export class Service{
         }
     }
 
-    async updatePost(slug, {title, content, featuredImage, status}){
+    async updatePost(slug, {title, content, featured_image, status}){
         try{
             return await this.databases.updateDocument(
-                conf.appwriteDatabaseID,
+                conf.appwritteDatabaseID,
                 conf.appwriteCollectionID,
                 slug,
                 {
                     title,
                     content,
-                    featuredImage,
+                    featured_image,
                     status
                 }
             )
@@ -57,7 +57,7 @@ export class Service{
     async deletePost(slug){
         try{
             await this.databases.deleteDocument(
-                conf.appwriteDatabaseID,
+                conf.appwritteDatabaseID,
                 conf.appwriteCollectionID,
                 slug
             )
@@ -71,7 +71,7 @@ export class Service{
     async getPost(slug){
         try{
             return await this.databases.getDocument(
-                conf.appwriteDatabaseID,
+                conf.appwritteDatabaseID,
                 conf.appwriteCollectionID,
                 slug
             )
@@ -81,9 +81,9 @@ export class Service{
         }
     }
 
-    async getPosts(queries = [Query.equal("Status", "active")]){
-        try {await databases.listDocuments(
-                conf.appwriteDatabaseID,
+    async getPosts(queries = [Query.equal("status", "active")]){
+        try {return await this.databases.listDocuments(
+                conf.appwritteDatabaseID,
                 conf.appwriteCollectionID,
                 queries
         );
